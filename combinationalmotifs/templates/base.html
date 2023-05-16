@@ -1,0 +1,74 @@
+{% load static %}
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Combinational Motifs</title>
+    <link href="{% static 'css/tabler.min.css' %}" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="page">
+      <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="sidebar-menu">
+            <ul class="navbar-nav pt-lg-3 ms-3">
+              <li class="nav-item">
+                <a class="nav-link" href="./" >
+                  <span class="h2">
+                    Início
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./" >
+                  <span class="h2">
+                    Modo contínuo
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./" >
+                  <span class="h2">
+                    Modo alternado
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./" >
+                  <span class="h2">
+                    Modo aleatório
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./" >
+                  <span class="h2">
+                    Erros
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+      <div class="page-wrapper">
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            {% block header %}
+            {% endblock header %}
+          </div>
+        </div>
+        <div class="page-body">
+          <div class="container-xl">
+            {% block content %}
+            {% endblock content %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'js/tabler.min.js' %}"></script>
+  </body>
+</html>
