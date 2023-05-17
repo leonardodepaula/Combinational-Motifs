@@ -23,12 +23,27 @@
               <span class="h2 nivel-{{ motif.depth }}">{{ motif }}</span>
             </div>
             {% for diagram in diagrams %}
-            <div class="col-auto ">
+            {% get_result diagram=diagram user=user as result %}
+            <div class="col-auto">
+              {% if result == None %}
               <a href="{% url 'core:continuous-mode-resolution' pk=diagram.pk %}">
                 <button class="btn btn-primary" style="width: 30px; height: 35px; margin-left: 10px; margin-bottom: 10px;">
                   {{ diagram.index }}
                 </button>
               </a>
+              {% elif result == True %}
+              <a href="{% url 'core:continuous-mode-resolution' pk=diagram.pk %}">
+                <button class="btn btn-success" style="width: 30px; height: 35px; margin-left: 10px; margin-bottom: 10px;">
+                  {{ diagram.index }}
+                </button>
+              </a>
+              {% elif result == False %}
+              <a href="{% url 'core:continuous-mode-resolution' pk=diagram.pk %}">
+                <button class="btn btn-danger" style="width: 30px; height: 35px; margin-left: 10px; margin-bottom: 10px;">
+                  {{ diagram.index }}
+                </button>
+              </a>
+              {% endif %}
             </div>
             {% endfor %}
           </div>
