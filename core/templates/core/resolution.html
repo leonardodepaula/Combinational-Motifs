@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% static "" as static_url %}
+
+{% block header %}
+<div class="row g-2 align-items-center">
+  <div class="col">
+    {% for motif in diagram.motif.get_ancestors %}
+    <span class="h1 nivel-{{ motif.depth }}">{{ motif }}</span>
+    </br>
+    {% endfor %}
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body text-center">
+        <img src="{% static '/diagrams/' %}{{ diagram.pk}}.png" alt="{{ diagram.motif }}" height="80%">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

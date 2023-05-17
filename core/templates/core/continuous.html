@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load core_tags %}
 
 {% block header %}
 <div class="row g-2 align-items-center">
@@ -16,8 +17,21 @@
     <div class="card">
       <div class="card-body">
         {% for motif in motifs %}
-          <span class="h2 nivel-{{ motif.depth }} mt-3">{{ motif }}</span>
-          <br/>
+        {% get_diagrams motif=motif as diagrams %}
+          <div class="row">
+            <div class="col-auto ">
+              <span class="h2 nivel-{{ motif.depth }}">{{ motif }}</span>
+            </div>
+            {% for diagram in diagrams %}
+            <div class="col-auto ">
+              <a href="{% url 'core:continuous-mode-resolution' pk=diagram.pk %}">
+                <button class="btn btn-primary" style="width: 30px; height: 35px; margin-left: 10px; margin-bottom: 10px;">
+                  {{ diagram.index }}
+                </button>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
         {% endfor %}
       </div>
     </div>
