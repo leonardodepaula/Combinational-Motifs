@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% static "" as static_url %}
+{% load core_tags %}
 
 {% block header %}
 <div class="row g-2 align-items-center">
@@ -40,18 +40,36 @@
     <div class="card">
       <div class="card-body m-0">
         <div class="row align-center">
-          <div class="col-10">
+          <div class="col-2">
             <button class="btn btn-lg btn-primary" onclick="showAnswer();">
               Show answer
             </button>
           </div>
-          <div class="col-2 align-center">
+          <div class="col-8 text-center">
             <button class="btn btn-lg btn-success" onclick="registerResolution('success');">
               Success
             </button>
             <button class="btn btn-lg btn-danger ms-3" onclick="registerResolution('error');">
               Error
             </button>
+          </div>
+          <div class="col-2">
+            {% get_result diagram_pk=diagram.pk|add:1 user_pk=user.pk as result_next %}
+            <a href="{% url 'core:continuous-mode-resolution' pk=diagram.pk|add:1 %}">
+              {% if result_next == None %}
+              <button class="btn btn-lg btn-primary float-end">
+                Next
+              </button>
+              {% elif result_next == True %}
+              <button class="btn btn-lg btn-success float-end">
+                Next
+              </button>
+              {% elif result_next == False %}
+              <button class="btn btn-lg btn-danger float-end">
+                Next
+              </button>
+              {% endif %}
+            </a>
           </div>
         </div>
       </div>

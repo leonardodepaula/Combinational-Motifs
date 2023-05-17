@@ -23,7 +23,7 @@
               <span class="h2 nivel-{{ motif.depth }}">{{ motif }}</span>
             </div>
             {% for diagram in diagrams %}
-            {% get_result diagram=diagram user=user as result %}
+            {% get_result diagram_pk=diagram.pk user_pk=user.pk as result %}
             <div class="col-auto">
               {% if result == None %}
               <a href="{% url 'core:continuous-mode-resolution' pk=diagram.pk %}">
