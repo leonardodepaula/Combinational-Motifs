@@ -15,7 +15,11 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        testexxx
+        {% if request.user.is_anonymous %}
+        Welcome to Combinational Motifs. A Python implementation of the book by Maxim Blokh.
+        {% else %}
+        <b>{{ request.user|capfirst }}</b>, welcome to Combinational Motifs. A Python implementation of the book by Maxim Blokh.
+        {% endif %}
       </div>
     </div>
   </div>

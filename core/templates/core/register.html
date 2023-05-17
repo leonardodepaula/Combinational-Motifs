@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block header %}
+<div class="row g-2 align-items-center">
+  <div class="col">
+    <span class="h1">
+      Register
+    </span>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row row-deck row-cards">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form id="register-form" method="post" action="{% url 'core:register' %}">
+          {% csrf_token %}
+          {% render_field form.username class="form-control text-black pr-3" placeholder=form.username.label %}
+          {% render_field form.password class="form-control text-black pr-3 mt-2" placeholder="Password" type="password" %}
+        </form>
+        <button class="btn btn-block btn-success mt-2" type="submit" form="register-form">
+          Register
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

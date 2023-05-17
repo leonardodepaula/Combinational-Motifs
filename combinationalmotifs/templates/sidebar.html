@@ -1,0 +1,59 @@
+{% load widget_tweaks %}
+
+<aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="sidebar-menu">
+      <ul class="navbar-nav me-3 ms-3 mt-3">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'core:index' %}">
+            <span class="h2">
+              Index
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'core:continuous-mode' %}">
+            <span class="h2">
+              Motifs
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin:index' %}">
+            <span class="h2">
+              Admin
+            </span>
+          </a>
+        </li>
+        {% if request.user.is_anonymous %}
+        <li class="nav-item mt-2">
+          <form id="login-form" method="post" action="{% url 'core:login' %}">
+            {% csrf_token %}
+            {% render_field form.username class="form-control text-black pr-3" placeholder=form.username.label %}
+            {% render_field form.password class="form-control text-black pr-3 mt-2" placeholder="Password" type="password" %}
+          </form>
+          <button class="btn btn-block btn-primary mt-2" type="submit" form="login-form">
+            Login
+          </button>
+          <a href="{% url 'core:register' %}">
+            <button class="btn btn-block btn-success mt-2 w-100">
+              Register
+            </button>
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item mt-2">
+          <span class="h6">Logged as</span>
+          <input type="text" class="form-control" name="example-disabled-input" value="{{ request.user.username }}" disabled>
+          <form id="logout-form" method="post" action="{% url 'core:logout' %}">
+            {% csrf_token %}
+          </form>
+          <button class="btn btn-block btn-yellow mt-2" type="submit" form="logout-form">
+            Logout
+          </button>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</aside>
