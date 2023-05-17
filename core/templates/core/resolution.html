@@ -15,15 +15,78 @@
 {% endblock header %}
 
 {% block content %}
+<div class="alert alert-success alert-dismissible" role="alert" id="result-alert" hidden>
+  <div class="d-flex">
+    <div>
+      <h4 class="alert-title">Resultado registrado com sucesso</h4>
+    </div>
+  </div>
+  <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+</div>
 <div class="row row-deck row-cards">
   <div class="col-12">
     <div class="card card-md">
       <div class="card-body">
         <div class="row align-center">
-          <img src="{% static '/diagrams/' %}{{ diagram.pk}}.png" alt="{{ diagram.motif }}" style="max-width: 40%; height: auto; margin: 0 auto;">
+          <img src="{% static '/diagrams/' %}{{ diagram.pk}}.png" alt="{{ diagram.motif }}" style="max-width: 40%; height: auto; margin: 0 auto;" id="diagram">
+          <img src="{% static '/answers/' %}{{ diagram.pk}}.png" alt="{{ diagram.motif }}" style="max-width: 50%; height: 50%; margin: 0 auto;" id="answer" hidden>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row row-deck row-cards mt-2">
+  <div class="col-12">
+    <div class="card card-md">
+      <div class="card-body">
+        <div class="row align-center">
+          <div class="col-10">
+            <button class="btn btn-lg btn-primary" onclick="showAnswer();">
+              Show answer
+            </button>
+          </div>
+          <div class="col-2 align-center">
+            <button class="btn btn-lg btn-success" onclick="registerResolution('success');">
+              Success
+            </button>
+            <button class="btn btn-lg btn-danger ms-3" onclick="registerResolution('error');">
+              Error
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 {% endblock content %}
+{% block javascript %}
+<script>
+
+  // Answer
+  function showAnswer() {
+    let answer = document.getElementById('answer');
+    answer.removeAttribute("hidden");
+  }
+
+  // Resolution
+  function registerResolution(result) {
+
+    $.ajax({
+      type: "POST",
+      url: "{% url 'core:result' %}",
+      data: {
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        user: "{{ request.user.pk }}",
+        diagram: "{{ diagram.pk }}",
+        result: result
+      },
+      success: function (data) {
+        let alert = document.getElementById('result-alert');
+        alert.removeAttribute("hidden");
+      }
+    });
+    
+  }
+
+</script>
+{% endblock javascript %}

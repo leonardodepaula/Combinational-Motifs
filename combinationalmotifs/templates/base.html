@@ -34,20 +34,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="./">
                   <span class="h2">
-                    Alternate Mode
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./">
-                  <span class="h2">
-                    Random Mode
-                  </span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./">
-                  <span class="h2">
                     Erros
                   </span>
                 </a>
@@ -78,7 +64,10 @@
         </div>
       </div>
     </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/tabler.min.js' %}"></script>
+    {% block javascript %}
+    {% endblock javascript %}
   </body>
 </html>

@@ -1,14 +1,16 @@
 # Django
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, TemplateView
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, TemplateView, RedirectView, View
 
 
 # Combinational Motifs
-from core.models import Motif, Diagram
+from core.models import Motif, Diagram, User, Resolution
 
-class IndexView(TemplateView):
+class IndexView(RedirectView):
 
-    template_name = 'core/index.html'
+    url = reverse_lazy('core:continuous-mode')
 
 class ContinuousModeView(LoginRequiredMixin, TemplateView):
 
@@ -31,3 +33,19 @@ class ContinuousModeResolutionView(LoginRequiredMixin, DetailView):
         context = super(ContinuousModeResolutionView, self).get_context_data(**kwargs)
 
         return context
+
+class ResultView(LoginRequiredMixin, View):
+
+    def post(self, *args, **kwargs):
+        user = User.objects.get(pk=self.request.POST.get('user'))
+        diagram = Diagram.objects.get(pk=self.request.POST.get('diagram'))
+        result = self.request.POST.get('result')
+
+        if result == 'success':
+            success = True
+        else:
+            success = False
+
+        Resolution.objects.create(user=user, diagram=diagram, success=success)
+
+        return HttpResponse(result)
