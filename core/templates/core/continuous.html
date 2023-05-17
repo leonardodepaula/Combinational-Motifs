@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="row g-2 align-items-center">
+  <div class="col">
+    <span class="h1">
+      Select a Motif
+    </span>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class="row row-deck row-cards">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        {% for motif in motifs %}
+          <span class="h2 nivel-{{ motif.depth }} mt-3">{{ motif }}</span>
+          <br/>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
